@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { TabViewAnimated, TabViewPagerPan } from 'react-native-tab-view';
 import SceneView from '../SceneView';
 import withCachedChildNavigation from '../../withCachedChildNavigation';
@@ -181,6 +181,11 @@ class TabView extends PureComponent<void, Props, void> {
       screenProps: this.props.screenProps,
       style: styles.container,
     };
+
+    if (Platform.OS === 'android') {
+      const { width, height } = Dimensions.get('window');
+      props.initialLayout = { width, height };
+    }
 
     return <TabViewAnimated {...props} />;
   }
